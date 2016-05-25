@@ -1,4 +1,14 @@
 #### pkandroiddevcok2ed'
+#####1 Activities
+######Starting a new activity with an intent
+```
+import android.content.Intent;
+public void launch(View view){
+  Intent intent = new Intent(Intent.ACTION_VIEW);  //open browser
+  intent.setData(Uri.parse("www.github.com")
+  startActivity(intent);
+}
+```
 #####6 Working with Data
 ######Storing simple data
 ```
@@ -70,6 +80,35 @@ if(fos!=null){
   editText.setText(sb);
 ```
 
+get public dict:
+```
+Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)
+```
+getFreeSpace
+```
+Environment.getExternalStorageDirectory().getFreeSpace()
+```
+
+######including resources files in (AS = android studio)
+create raw folder: res->raw  
+create asset folder: AS->right click project->new->folder->asset folder  
+we create a method
+```
+getText(InputStream is)
+```
+Difference:
+```
+TextView raw = (TextView)findViewById(R.id.textViewRaw);
+raw.setText(getText(this.getResources().openRawResource(R.raw.filename)
+```
+read asset need try/catch
+```
+TextView raw = (TextView)findViewById(R.id.textViewAsset);
+try{
+raw.setText(getText(this.getAssets().open("filename.txt");
+}catch(IOException e){
+}
+```
 #####8 Using the touchscreen and sensors
 
 ######swipe to refresh
