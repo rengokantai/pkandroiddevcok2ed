@@ -9,6 +9,40 @@ public void launch(View view){
   startActivity(intent);
 }
 ```
+######saving an activity's state
+```
+@override
+protected void onSaveInstanceState(Bundle outState){
+  super.onSaveInstanceState(outState);
+  outState.putInt(KEY_COUNTER,mCounter)
+}
+
+@override
+protected void onRestoreInstanceState(Bundle savedInstanceState){
+  super.onRestoreInstanceState(savedInstanceState);
+  mCounter = savedInstanceState.getInt(KEY_COUNTER);
+}
+```
+######Storing persistent data
+```
+@override
+pretected void onPause(){
+  super.onPause();
+  SharedPreferences.Editor ed = getSharedPreferences(MODE_PRIVATE).edit();
+  ed.putInt(KEY,mCounter);
+  ed.commit();
+}
+
+@override
+protected void onCreate(){
+  mCounter = getPreferences(MODE_PRIVATE).getInt(KEY,def);
+}
+```
+#####2 Layouts
+######Defining and
+```
+setContentView(R.layout.activity_main)
+```
 #####6 Working with Data
 ######Storing simple data
 ```
