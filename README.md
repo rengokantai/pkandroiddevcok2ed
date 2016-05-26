@@ -43,6 +43,40 @@ protected void onCreate(){
 ```
 setContentView(R.layout.activity_main)
 ```
+#####2
+######Using ListView
+```
+String[] countries = new String[]{"China", "France", "Germany", "India", "Russia", "United Kingdom", "United States"};
+ListAdapter countryAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countries);
+setListAdapter(countryAdapter);
+```
+setChoiceMode()
+```
+getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+```
+###### using graphic to show button state
+```
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@android:color/darker_gray"
+        android:state_checked="true"/>
+    <item
+        android:drawable="@android:color/white"  // or change to image android:drawable="@drawable/imgname
+        android:state_checked="false"/>
+</selector>
+```
+button:
+```
+<ToggleButton
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="New ToggleButton"
+    android:id="@+id/toggleButton"
+    android:layout_centerVertical="true"
+    android:layout_centerHorizontal="true"
+    android:background="@drawable/state_selector" />  //can be android:button
+```
 #####6 Working with Data
 ######Storing simple data
 ```
@@ -148,4 +182,48 @@ raw.setText(getText(this.getAssets().open("filename.txt");
 ######swipe to refresh
 ```
 <android.support.v4.widget.SwipeRefreshLayout ..>
+```
+#####12Telephony Networks
+######How to make a phone
+```
+<uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
+```
+```
+public void dialPhone(View view,int number){
+if(checkPermission("android.permission.CALL_PHONE")){
+Intent intent = new Intent(Intent.ACTION_DIAL);
+intent.setData(Uri.parse("tel":+number));
+startActivity(intent);
+}
+}
+```
+check permission granting
+```
+private boolean checkPermission(String permission){
+int permissionCheck = ContextCompat.checkSelfPermission(this,permission);
+return (permissionCheck == PackageManager.PERMISSION_GRANTED);
+}
+```
+###### Monitoring phone call event
+```
+<uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+```
+```
+
+```
+#####14 Getting you app ready
+######The new And 6.0 run0time
+```
+private boolean checkPermission(String permission){
+int permissionCheck = ContextCompat.checkSelfPermission(this,permission);
+return (permissionCheck == PackageManager.PERMISSION_GRANTED);
+}
+```
+permission name, permissionrequestcode
+```
+ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.SEND_SMS, REQUSET_PERMISSION0
+```
+override onRequestPermissionsResult(requestCode,permissions[],grantReaults)
+```
+if(grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED)
 ```
