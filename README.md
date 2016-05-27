@@ -54,6 +54,7 @@ setChoiceMode()
 ```
 getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 ```
+#####3 Views widgets
 ###### using graphic to show button state
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -76,6 +77,76 @@ button:
     android:layout_centerVertical="true"
     android:layout_centerHorizontal="true"
     android:background="@drawable/state_selector" />  //can be android:button
+```
+######Creating a widget at runtime
+in activity_main.xml
+```
+android:id="@+id/layout"
+```
+in java:
+```
+RelativeLayout layout = (RelativeLayout)findViewById(R.id.layout);
+DatePicker datePicker = new DatePicker(this);
+layout.addView(datePicker);
+```
+######Creating a custom component
+MainActivity.java
+```
+setContentView(new CustomView(this));
+```
+######Applying a style to a view
+in style.xml
+```
+<style name="MyStyle">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    ...
+</style>
+```
+in activity_main.xml
+```
+style="@style/MyStyle"
+```
+To set the style for all TextViews, add the following line to the AppTheme style:
+```
+<item name="android:textViewStyle">@style/MyStyle</item>
+```
+######Turning a style into a theme
+style.xml
+```
+<style name="AppTheme.MyDialog">
+    <item name="android:windowIsFloating">true</item>
+</style>
+```
+AndroidManifest.xml
+```
+<activity android:name=".Mainactivity" android:theme="@style/AppTheme.MyDialog">
+```
+######Selecting theme based on the And ver
+in main style.xml file, create a new theme
+```
+<resources>
+    <style name="AutomaticTheme" parent="android:Theme.Light">
+    </style>
+</resources>
+```
+create values-v11 folder, in style.xml
+```
+<resources>
+    <style name="AutomaticTheme" parent="android:Theme.Holo.Light">
+    </style>
+</resources>
+```
+values-v21 folder, in style.xml
+```
+<resources>
+    <style name="AutomaticTheme" parent="android:Theme.Material.Light">
+    </style>
+</resources>
+```
+use it in AndroidManifest.xml
+```
+android:theme="@style/AutomaticTheme"
 ```
 #####6 Working with Data
 ######Storing simple data
