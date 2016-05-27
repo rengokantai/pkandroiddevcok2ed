@@ -148,6 +148,53 @@ use it in AndroidManifest.xml
 ```
 android:theme="@style/AutomaticTheme"
 ```
+#####4 Menus
+######modifying menus and menu items
+```
+private final int MENU_DOWNLOAD = 1;
+private final int MENU_SETTINGS = 2;
+private boolean showDownloadMenu = false;
+```
+toggle
+```
+public void toggleMenu(View view) {
+    showDownloadMenu=!showDownloadMenu;
+}
+```
+When the activity is first created, Android calls onCreateOptionsMenu() to create the menu. 
+```
+@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+    menu.add(0, MENU_DOWNLOAD, 0, R.string.menu_download);   //memorize this syntax
+    menu.add(0, MENU_SETTINGS, 0, R.string.menu_settings);
+    return true;
+}
+```
+Do not use onCreateOptionsMenu() to update or change menu, use onPrepareOptionsMenu().
+```
+@Override
+public boolean onPrepareOptionsMenu(Menu menu) {
+    MenuItem menuItem = menu.findItem(MENU_DOWNLOAD);
+    menuItem.setVisible(showDownloadMenu);
+    return true;
+}
+```
+```
+@Override
+public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+        case MENU_DOWNLOAD:
+            Toast.makeText(this, R.string.menu_download, Toast.LENGTH_LONG).show();
+            break;
+        case MENU_SETTINGS:
+            Toast.makeText(this, R.string.menu_settings, Toast.LENGTH_LONG).show();
+            break;
+        default:
+            return super.onContextItemSelected(item);
+    }
+    return true;
+}
+```
 #####6 Working with Data
 ######Storing simple data
 ```
